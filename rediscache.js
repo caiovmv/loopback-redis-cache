@@ -3,13 +3,14 @@ module.exports = function(Model, options) {
         var clientSettings = options.client;
     }else{
         var app = require('../../server/server.js');
-        var clientSettings = app.get('redis');
-        console.log(clientSettings);
+        var clientHost = app.get('redis.host');
+        var clientPort = app.get('redis.port');
+        var clientPassword = app.get('redis.password');
     }
 
     var redis = require("redis"),
-        client = redis.createClient(clientSettings.port, clientSettings.host);
-	    client.auth(clientSettings.password)
+        client = redis.createClient(clientPort, clientHost);
+	    client.auth(clientPassword);
 
     var redisDeletePattern = require('redis-delete-pattern'); 
 
